@@ -16,6 +16,8 @@
 //!
 //! ## Example
 //! ```rust
+//! use std::path::Path;
+//! use name2gender::Name2gender;
 //! let model = Name2gender::load_or_train_if_stale(
 //!     Path::new("model.msgpack"),
 //!     Path::new("data/gender_type.csv"),
@@ -27,9 +29,10 @@
 
 use linfa::prelude::*;
 use linfa_bayes::MultinomialNb;
+use linfa_bayes::NaiveBayes;
 use ndarray::{Array1, Array2};
-use rand::seq::SliceRandom;
 use rand::rng;
+use rand::seq::SliceRandom;
 use rmp_serde::{decode::from_read, encode::write_named};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, HashMap, HashSet};
@@ -75,9 +78,15 @@ fn extract_string_features(name: &str) -> HashSet<String> {
         features.insert(format!("last={}", last));
         let len = chars.len();
         if len >= 2 {
-            features.insert(format!("last2={}", chars[len - 2..].iter().collect::<String>()));
+            features.insert(format!(
+                "last2={}",
+                chars[len - 2..].iter().collect::<String>()
+            ));
             if len >= 3 {
-                features.insert(format!("last3={}", chars[len - 3..].iter().collect::<String>()));
+                features.insert(format!(
+                    "last3={}",
+                    chars[len - 3..].iter().collect::<String>()
+                ));
             }
         }
     }
@@ -249,8 +258,8 @@ impl Name2gender {
         let input = Array2::from_shape_vec((1, self.vocab.len()), row).unwrap();
         let (proba, classes) = self.model.predict_proba(input.view());
 
-        let p_male = proba[[0, classes.iter().position(|&c| c == 0).unwrap()]];
-        let p_female = proba[[0, classes.iter().position(|&c| c == 1).unwrap()]];
+        let p_male = proba[[0, classes.iter().position(|&c| *c == 0).unwrap()]];
+        let p_female = proba[[0, classes.iter().position(|&c| *c == 1).unwrap()]];
 
         let label = if p_male >= p_female {
             LABEL_MALE

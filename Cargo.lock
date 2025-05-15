@@ -314,7 +314,7 @@ checksum = "c19937216e9d3aa9956d9bb8dfc0b0c8beb6058fc4f7a4dc4d850edf86a237d6"
 [[package]]
 name = "linfa"
 version = "0.7.1"
-source = "git+https://github.com/kakserpom/linfa?branch=linfa_bayes_MultinomialNb_predict_proba#4ccfb7f41be9e958bd2abe2ca8c84915ce2af7aa"
+source = "git+https://github.com/relf/linfa?branch=improve-bayes#114253c1602184630d67ecbf45257a7ae4a65f44"
 dependencies = [
  "approx",
  "ndarray",
@@ -328,7 +328,7 @@ dependencies = [
 [[package]]
 name = "linfa-bayes"
 version = "0.7.1"
-source = "git+https://github.com/kakserpom/linfa?branch=linfa_bayes_MultinomialNb_predict_proba#4ccfb7f41be9e958bd2abe2ca8c84915ce2af7aa"
+source = "git+https://github.com/relf/linfa?branch=improve-bayes#114253c1602184630d67ecbf45257a7ae4a65f44"
 dependencies = [
  "linfa",
  "ndarray",
