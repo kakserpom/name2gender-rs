@@ -5,15 +5,16 @@ edition = "2024"
 
 [dependencies]
 ndarray = { version = "0.15.6", features = ["serde"] }
-linfa = { git = "https://github.com/relf/linfa", branch = "improve-bayes", features = ["serde"], package = "linfa" }
-linfa-bayes = { git = "https://github.com/relf/linfa", branch = "improve-bayes", features = ["serde"], package = "linfa-bayes" }
+linfa = { git = "https://github.com/rust-ml/linfa", branch = "master", features = ["serde"], package = "linfa" }
+linfa-bayes = { git = "https://github.com/rust-ml/linfa", branch = "master", features = ["serde"], package = "linfa-bayes" }
 csv = "1.3"
 serde = { version = "1.0", features = ["derive"] }
 rand = "0.9.0"
 rmp-serde = "1.3.0"
+anyhow = "1.0.98"
 
 [dev-dependencies]
-criterion = "0.5"
+criterion = "0.6"
 
 [[bench]]
 name = "benchmark"
